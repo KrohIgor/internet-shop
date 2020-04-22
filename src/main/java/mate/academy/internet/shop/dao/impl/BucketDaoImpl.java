@@ -7,7 +7,6 @@ import mate.academy.internet.shop.db.Storage;
 import mate.academy.internet.shop.lib.Dao;
 import mate.academy.internet.shop.model.Bucket;
 
-
 @Dao
 public class BucketDaoImpl implements BucketDao {
 
@@ -22,7 +21,8 @@ public class BucketDaoImpl implements BucketDao {
         return Storage.buckets
                 .stream().filter(b -> b.getId().equals(bucketId))
                 .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Can't find bucket whith id " + bucketId));
+                .orElseThrow(() ->
+                        new NoSuchElementException("Can't find bucket whith id " + bucketId));
     }
 
     @Override
