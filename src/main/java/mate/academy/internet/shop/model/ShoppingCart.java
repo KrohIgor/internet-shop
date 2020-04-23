@@ -2,7 +2,7 @@ package mate.academy.internet.shop.model;
 
 import java.util.List;
 
-public class Bucket {
+public class ShoppingCart {
 
     private User user;
     private Long id;
