@@ -51,6 +51,7 @@ public class Application {
         for (Product product : productService.getAll()) {
             System.out.println(product);
         }
+        tomato.setName("Tomato");
         productService.create(tomato);
         System.out.println("---------------------------------------------");
 
@@ -94,14 +95,18 @@ public class Application {
         shoppingCartService.clear(bobCart);
         System.out.println("ShoppingCart Bob after clear:");
         System.out.println(shoppingCartService.getByUserId(bob.getId()));
+        shoppingCartService.addProduct(bobCart, apple);
+        shoppingCartService.addProduct(bobCart, tomato);
         System.out.println("---------------------------------------------");
 
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
 
-        Order bobOrder = orderService.completeOrder(bobCart.getProducts(), bob);
         System.out.println("Test Order Service:");
         System.out.println("Bob's order by id:");
+        Order bobOrder = orderService.completeOrder(bobCart.getProducts(), bob);
         System.out.println(orderService.get(bobOrder.getId()));
+        System.out.println("Order on empty sopping cart:");
+        orderService.completeOrder(bobCart.getProducts(), bob);
         System.out.println("All orders:");
         ShoppingCart jackCart = new ShoppingCart(jack);
         shoppingCartService.addProduct(jackCart, tomato);
@@ -111,7 +116,9 @@ public class Application {
         orderService.delete(jackOrder.getId());
         System.out.println("Orders after delete jackOrder:");
         System.out.println(orderService.getAll());
-        System.out.println("Bob's order by user:");
+        shoppingCartService.addProduct(bobCart, cucumber);
+        orderService.completeOrder(bobCart.getProducts(), bob);
+        System.out.println("Bob's orders by user:");
         System.out.println(orderService.getUserOrders(bob));
     }
 }
