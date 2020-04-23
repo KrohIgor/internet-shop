@@ -52,6 +52,7 @@ public class Application {
             System.out.println(product);
         }
         productService.create(tomato);
+        System.out.println("---------------------------------------------");
 
         System.out.println("Test User Service:");
         for (User user : userService.getAll()) {
@@ -72,6 +73,7 @@ public class Application {
             System.out.println(user);
         }
         userService.create(bob);
+        System.out.println("---------------------------------------------");
 
         ShoppingCart bobCart = new ShoppingCart(bob);
         System.out.println("Test ShoppingCart Service:");
@@ -84,14 +86,15 @@ public class Application {
         System.out.println("All Bob's products: " + shoppingCartService.getAllProducts(bobCart));
         System.out.println("ShoppingCart Bob: " + shoppingCartService.getByUserId(bob.getId()));
         shoppingCartService.addProduct(bobCart, cucumber);
-        System.out.println("ShoppingCart Bob with added: Cucumber"
-                + shoppingCartService.getByUserId(bob.getId()));
+        System.out.println("ShoppingCart Bob with added Cucumber :");
+        System.out.println(shoppingCartService.getByUserId(bob.getId()));
         shoppingCartService.deleteProduct(bobCart, tomato);
-        System.out.println("ShoppingCart Bob after deleted Tomato:"
-                + shoppingCartService.getByUserId(bob.getId()));
+        System.out.println("ShoppingCart Bob after deleted Tomato:");
+        System.out.println(shoppingCartService.getByUserId(bob.getId()));
         shoppingCartService.clear(bobCart);
-        System.out.println("ShoppingCart Bob after clear:"
-                + shoppingCartService.getByUserId(bob.getId()));
+        System.out.println("ShoppingCart Bob after clear:");
+        System.out.println(shoppingCartService.getByUserId(bob.getId()));
+        System.out.println("---------------------------------------------");
 
         OrderService orderService = (OrderService) injector.getInstance(OrderService.class);
 
