@@ -7,7 +7,6 @@ public class Bucket {
     private User user;
     private Long id;
     private List<Product> products;
-    private Long orderId;
 
     public Long getId() {
         return id;
@@ -23,14 +22,6 @@ public class Bucket {
 
     public void setProducts(List<Product> products) {
         this.products = products;
-    }
-
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
     }
 
     public User getUser() {
