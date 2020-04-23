@@ -1,5 +1,6 @@
 package mate.academy.internet.shop.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import mate.academy.internet.shop.dao.ShoppingCartDao;
 import mate.academy.internet.shop.lib.Inject;
@@ -16,6 +17,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart addProduct(ShoppingCart shoppingCart, Product product) {
+        if (shoppingCart.getProducts() == null) {
+            shoppingCart.setProducts(new ArrayList<>());
+        }
         if (shoppingCart.getId() == null) {
             shoppingCartDao.create(shoppingCart);
         }

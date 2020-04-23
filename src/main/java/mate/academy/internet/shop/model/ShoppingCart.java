@@ -1,6 +1,5 @@
 package mate.academy.internet.shop.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCart {
@@ -11,7 +10,6 @@ public class ShoppingCart {
 
     public ShoppingCart(User user) {
         this.user = user;
-        products = new ArrayList<>();
     }
 
     public Long getId() {

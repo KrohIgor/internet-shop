@@ -10,6 +10,7 @@ import mate.academy.internet.shop.model.Order;
 
 @Dao
 public class OrderDaoImpl implements OrderDao {
+
     @Override
     public Order create(Order order) {
         Storage.add(order);
