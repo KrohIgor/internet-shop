@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Bucket {
 
+    private User user;
     private Long id;
-    private List<Item> items;
-    private Long orderId;
+    private List<Product> products;
 
     public Long getId() {
         return id;
@@ -16,19 +16,19 @@ public class Bucket {
         this.id = id;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public User getUser() {
+        return user;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
