@@ -25,10 +25,10 @@ public class Storage {
         products.add(product);
     }
 
-    public static void add(ShoppingCart ShoppingCart) {
+    public static void add(ShoppingCart shoppingCart) {
         shoppingCartId++;
-        ShoppingCart.setId(shoppingCartId);
-        shoppingCarts.add(ShoppingCart);
+        shoppingCart.setId(shoppingCartId);
+        shoppingCarts.add(shoppingCart);
     }
 
     public static void add(User user) {
