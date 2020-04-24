@@ -2,11 +2,15 @@ package mate.academy.internet.shop.model;
 
 import java.util.List;
 
-public class Bucket {
+public class ShoppingCart {
 
     private User user;
     private Long id;
     private List<Product> products;
+
+    public ShoppingCart(User user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -30,5 +34,11 @@ public class Bucket {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "ShoppingCart{" + "user=" + user + ", id=" + id
+                + ", products=" + products + '}';
     }
 }
