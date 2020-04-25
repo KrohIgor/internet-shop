@@ -53,4 +53,29 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public List<Product> getAllProducts(ShoppingCart shoppingCart) {
         return shoppingCart.getProducts();
     }
+
+    @Override
+    public ShoppingCart create(ShoppingCart element) {
+        return shoppingCartDao.create(element);
+    }
+
+    @Override
+    public ShoppingCart get(Long elementId) {
+        return shoppingCartDao.get(elementId).get();
+    }
+
+    @Override
+    public List<ShoppingCart> getAll() {
+        return shoppingCartDao.getAll();
+    }
+
+    @Override
+    public ShoppingCart update(ShoppingCart element) {
+        return shoppingCartDao.update(element);
+    }
+
+    @Override
+    public boolean delete(Long elementId) {
+        return shoppingCartDao.delete(elementId);
+    }
 }
