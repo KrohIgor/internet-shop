@@ -4,7 +4,7 @@ import java.util.List;
 import mate.academy.internet.shop.model.Product;
 import mate.academy.internet.shop.model.ShoppingCart;
 
-public interface ShoppingCartService {
+public interface ShoppingCartService extends GenericService<ShoppingCart,Long> {
 
     ShoppingCart addProduct(ShoppingCart shoppingCart, Product product);
 
