@@ -47,7 +47,7 @@ public class Application {
             System.out.println(product);
         }
         System.out.println("Deleted Tomato:");
-        productService.delete(tomato.getId());
+        productService.delete(tomato.getProductId());
         for (Product product : productService.getAll()) {
             System.out.println(product);
         }

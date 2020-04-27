@@ -12,12 +12,28 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>injectData</servlet-name>
+        <servlet-class>mate.academy.internet.shop.controllers.InjectDataController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>injectData</servlet-name>
+        <url-pattern>/injectData</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>registration</servlet-name>
         <servlet-class>mate.academy.internet.shop.controllers.RegistrationController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>registration</servlet-name>
         <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>addProduct</servlet-name>
+        <servlet-class>mate.academy.internet.shop.controllers.AddProductController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addProduct</servlet-name>
+        <url-pattern>/addProduct</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>deleteUser</servlet-name>
@@ -34,5 +50,13 @@
     <servlet-mapping>
         <servlet-name>allUsers</servlet-name>
         <url-pattern>/users/all</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>allProducts</servlet-name>
+        <servlet-class>mate.academy.internet.shop.controllers.ProductsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>allProducts</servlet-name>
+        <url-pattern>/products/all</url-pattern>
     </servlet-mapping>
 </web-app>

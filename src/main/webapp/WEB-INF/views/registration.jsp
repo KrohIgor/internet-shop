@@ -4,13 +4,13 @@
     <title>Registration</title>
 </head>
 <body>
-<h1>Hello! Please provide your user details</h1>
+<h1>Please provide your user details</h1>
 <h4 style="color:red">${message}</h4>
 <form method="post" action="${pageContext.request.contextPath}/registration">
-    Please provide your name: <input type="text" name="name">
-    Please provide your login: <input type="text" name="login">
-    Please provide your password: <input type="password" name="pwd">
-    Please provide your password: <input type="password" name="pwd-repeat">
+    Name: <input type="text" name="name">
+    Login: <input type="text" name="login">
+    Password: <input type="password" name="pwd">
+    Repeat password: <input type="password" name="pwd-repeat">
 
     <button type="submit">Register</button>
 </form>
