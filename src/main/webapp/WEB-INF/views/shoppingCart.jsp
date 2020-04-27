@@ -2,16 +2,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>All products</title>
+    <title>All products in shopping cart</title>
 </head>
 <body>
-<h1>All products page</h1>
+<h1>All products in shopping cart page</h1>
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Price</th>
-        <th>Buy</th>
     </tr>
     <c:forEach var="product" items="${products}">
         <tr>
@@ -24,11 +23,9 @@
             <td>
                 <c:out value="${product.price}"/>
             </td>
-            <td>
-                <a href="${pageContext.request.contextPath}/addProductToShoppingCart?productId=${product.productId}">BUY</a>
-            </td>
         </tr>
     </c:forEach>
 </table>
+<a href="${pageContext.request.contextPath}/products/all">Return to the list of all products</a>
 </body>
 </html>

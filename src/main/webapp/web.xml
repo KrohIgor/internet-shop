@@ -44,6 +44,14 @@
         <url-pattern>/deleteUser</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>addProductToShoppingCart</servlet-name>
+        <servlet-class>mate.academy.internet.shop.controllers.ShoppingCartController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addProductToShoppingCart</servlet-name>
+        <url-pattern>/addProductToShoppingCart</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>allUsers</servlet-name>
         <servlet-class>mate.academy.internet.shop.controllers.UsersController</servlet-class>
     </servlet>
