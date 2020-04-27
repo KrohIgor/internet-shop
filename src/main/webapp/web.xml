@@ -11,4 +11,12 @@
         <servlet-name>index</servlet-name>
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>allUsers</servlet-name>
+        <servlet-class>mate.academy.internet.shop.controllers.UsersController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>allUsers</servlet-name>
+        <url-pattern>/users/all</url-pattern>
+    </servlet-mapping>
 </web-app>
