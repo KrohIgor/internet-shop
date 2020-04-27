@@ -20,6 +20,14 @@
         <url-pattern>/registration</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>deleteUser</servlet-name>
+        <servlet-class>mate.academy.internet.shop.controllers.DeleteUserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>deleteUser</servlet-name>
+        <url-pattern>/deleteUser</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>allUsers</servlet-name>
         <servlet-class>mate.academy.internet.shop.controllers.UsersController</servlet-class>
     </servlet>

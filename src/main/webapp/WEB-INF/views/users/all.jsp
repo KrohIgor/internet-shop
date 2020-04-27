@@ -9,7 +9,9 @@
 <table border="1">
     <tr>
         <th>ID</th>
+        <th>Login</th>
         <th>Name</th>
+        <th>Delete</th>
     </tr>
     <c:forEach var="user" items="${users}">
         <tr>
@@ -17,7 +19,13 @@
                 <c:out value="${user.userId}"/>
             </td>
             <td>
+                <c:out value="${user.login}"/>
+            </td>
+            <td>
                 <c:out value="${user.name}"/>
+            </td>
+            <td>
+                <a href="/deleteUser?userId=${user.userId}">DELETE</a>
             </td>
         </tr>
     </c:forEach>

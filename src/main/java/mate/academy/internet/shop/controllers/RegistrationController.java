@@ -5,8 +5,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mate.academy.internet.shop.lib.Injector;
+import mate.academy.internet.shop.model.User;
+import mate.academy.internet.shop.service.UserService;
 
 public class RegistrationController extends HttpServlet {
+    private static Injector injector = Injector.getInstance("mate.academy.internet.shop");
+    private UserService userService = (UserService) injector.getInstance(UserService.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -16,12 +22,14 @@ public class RegistrationController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        String name = req.getParameter("name");
         String login = req.getParameter("login");
         String password = req.getParameter("pwd");
         String repeatPassword = req.getParameter("pwd-repeat");
 
         if (password.equals(repeatPassword)) {
-            // Save User
+            User user = new User(name, login, password);
+            userService.create(user);
             resp.sendRedirect(req.getContextPath() + "/");
         } else {
             req.setAttribute("message", "Your password and repeat password aren't the same.");
