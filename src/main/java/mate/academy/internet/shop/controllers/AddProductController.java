@@ -10,9 +10,9 @@ import mate.academy.internet.shop.model.Product;
 import mate.academy.internet.shop.service.ProductService;
 
 public class AddProductController extends HttpServlet {
-    private static Injector injector = Injector.getInstance("mate.academy.internet.shop");
-    private ProductService productService =
-            (ProductService) injector.getInstance(ProductService.class);
+    private static final Injector INJECTOR = Injector.getInstance("mate.academy.internet.shop");
+    private final ProductService productService =
+            (ProductService) INJECTOR.getInstance(ProductService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

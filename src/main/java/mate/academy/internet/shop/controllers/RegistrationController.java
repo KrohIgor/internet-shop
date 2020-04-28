@@ -12,10 +12,10 @@ import mate.academy.internet.shop.service.ShoppingCartService;
 import mate.academy.internet.shop.service.UserService;
 
 public class RegistrationController extends HttpServlet {
-    private static Injector injector = Injector.getInstance("mate.academy.internet.shop");
-    private UserService userService = (UserService) injector.getInstance(UserService.class);
+    private static final Injector INJECTOR = Injector.getInstance("mate.academy.internet.shop");
+    private final UserService userService = (UserService) INJECTOR.getInstance(UserService.class);
     private final ShoppingCartService shoppingCartService =
-            (ShoppingCartService) injector.getInstance(ShoppingCartService.class);
+            (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
