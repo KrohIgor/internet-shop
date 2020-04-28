@@ -52,6 +52,14 @@
         <url-pattern>/addProductToShoppingCart</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>deleteProductFromShoppingCart</servlet-name>
+        <servlet-class>mate.academy.internet.shop.controllers.DeleteProductFromShoppingCartController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>deleteProductFromShoppingCart</servlet-name>
+        <url-pattern>/deleteProductFromShoppingCart</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>allProductInShoppingCart</servlet-name>
         <servlet-class>mate.academy.internet.shop.controllers.GetAllProductsInShoppingCartController</servlet-class>
     </servlet>

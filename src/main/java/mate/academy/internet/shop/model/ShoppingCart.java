@@ -5,19 +5,19 @@ import java.util.List;
 public class ShoppingCart {
 
     private User user;
-    private Long id;
+    private Long shoppingCartId;
     private List<Product> products;
 
     public ShoppingCart(User user) {
         this.user = user;
     }
 
-    public Long getId() {
-        return id;
+    public Long getShoppingCartId() {
+        return shoppingCartId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setShoppingCartId(Long shoppingCartId) {
+        this.shoppingCartId = shoppingCartId;
     }
 
     public List<Product> getProducts() {
@@ -38,7 +38,7 @@ public class ShoppingCart {
 
     @Override
     public String toString() {
-        return "ShoppingCart{" + "user=" + user + ", id=" + id
+        return "ShoppingCart{" + "user=" + user + ", id=" + shoppingCartId
                 + ", products=" + products + '}';
     }
 }

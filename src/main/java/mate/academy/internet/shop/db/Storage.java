@@ -27,7 +27,7 @@ public class Storage {
 
     public static void add(ShoppingCart shoppingCart) {
         shoppingCartId++;
-        shoppingCart.setId(shoppingCartId);
+        shoppingCart.setShoppingCartId(shoppingCartId);
         shoppingCarts.add(shoppingCart);
     }
 

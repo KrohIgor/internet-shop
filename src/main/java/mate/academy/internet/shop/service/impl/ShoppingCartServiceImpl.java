@@ -20,7 +20,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         if (shoppingCart.getProducts() == null) {
             shoppingCart.setProducts(new ArrayList<>());
         }
-        if (shoppingCart.getId() == null) {
+        if (shoppingCart.getShoppingCartId() == null) {
             shoppingCartDao.create(shoppingCart);
         }
         shoppingCart.getProducts().add(product);
