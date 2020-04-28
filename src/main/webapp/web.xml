@@ -53,7 +53,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>allUsers</servlet-name>
-        <servlet-class>mate.academy.internet.shop.controllers.UsersController</servlet-class>
+        <servlet-class>mate.academy.internet.shop.controllers.GetAllUsersController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>allUsers</servlet-name>
