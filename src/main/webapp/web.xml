@@ -68,6 +68,14 @@
         <url-pattern>/allProductInShoppingCart</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>completeOrder</servlet-name>
+        <servlet-class>mate.academy.internet.shop.controllers.CompleteOrderController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>completeOrder</servlet-name>
+        <url-pattern>/completeOrder</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>allUsers</servlet-name>
         <servlet-class>mate.academy.internet.shop.controllers.GetAllUsersController</servlet-class>
     </servlet>
@@ -82,5 +90,21 @@
     <servlet-mapping>
         <servlet-name>allProducts</servlet-name>
         <url-pattern>/products/all</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>allOrders</servlet-name>
+        <servlet-class>mate.academy.internet.shop.controllers.GetAllOrdersController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>allOrders</servlet-name>
+        <url-pattern>/orders/all</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>viewOrder</servlet-name>
+        <servlet-class>mate.academy.internet.shop.controllers.ViewOrderController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>viewOrder</servlet-name>
+        <url-pattern>/viewOrder</url-pattern>
     </servlet-mapping>
 </web-app>

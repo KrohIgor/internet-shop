@@ -39,7 +39,7 @@ public class Storage {
 
     public static void add(Order order) {
         orderId++;
-        order.setId(orderId);
+        order.setOrderId(orderId);
         orders.add(order);
     }
 }

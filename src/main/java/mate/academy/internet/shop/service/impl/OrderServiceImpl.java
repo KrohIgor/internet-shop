@@ -53,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
     public Order get(Long id) {
         return orderDao.getAll()
                 .stream()
-                .filter(o -> o.getId().equals(id))
+                .filter(o -> o.getOrderId().equals(id))
                 .findFirst().get();
     }
 
@@ -69,6 +69,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean delete(Long id) {
-        return orderDao.getAll().removeIf(o -> o.getId().equals(id));
+        return orderDao.getAll().removeIf(o -> o.getOrderId().equals(id));
     }
 }
