@@ -31,7 +31,7 @@ public class OrderServiceImpl implements OrderService {
         orderDao.create(order);
         shoppingCartDao.getAll()
                 .stream()
-                .filter(s -> s.getUser().getId().equals(user.getId()))
+                .filter(s -> s.getUser().getUserId().equals(user.getUserId()))
                 .findFirst()
                 .ifPresent(s -> s.getProducts().clear());
         return order;
@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getUserOrders(User user) {
         return orderDao.getAll().stream()
-                .filter(o -> o.getUser().getId().equals(user.getId()))
+                .filter(o -> o.getUser().getUserId().equals(user.getUserId()))
                 .collect(Collectors.toList());
     }
 

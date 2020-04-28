@@ -2,7 +2,7 @@ package mate.academy.internet.shop.model;
 
 public class Product {
 
-    private Long id;
+    private Long productId;
     private String name;
     private Double price;
 
@@ -11,12 +11,12 @@ public class Product {
         this.price = price;
     }
 
-    public Long getId() {
-        return id;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -37,6 +37,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name='" + name + '\'' + ", price=" + price + '}';
+        return "Product{" + "id=" + productId + ", name='" + name + '\'' + ", price=" + price + '}';
     }
 }

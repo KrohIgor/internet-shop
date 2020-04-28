@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDao {
     public Optional<User> get(Long id) {
         return Storage.users
                 .stream()
-                .filter(u -> u.getId().equals(id))
+                .filter(u -> u.getUserId().equals(id))
                 .findFirst();
     }
 
@@ -32,13 +32,13 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User update(User user) {
         IntStream.range(0, Storage.users.size())
-                .filter(x -> user.getId().equals(Storage.users.get(x).getId()))
+                .filter(x -> user.getUserId().equals(Storage.users.get(x).getUserId()))
                 .forEach(u -> Storage.users.set(u, user));
         return user;
     }
 
     @Override
     public boolean delete(Long id) {
-        return Storage.users.removeIf(u -> u.getId().equals(id));
+        return Storage.users.removeIf(u -> u.getUserId().equals(id));
     }
 }

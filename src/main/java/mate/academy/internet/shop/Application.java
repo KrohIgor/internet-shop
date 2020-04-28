@@ -47,7 +47,7 @@ public class Application {
             System.out.println(product);
         }
         System.out.println("Deleted Tomato:");
-        productService.delete(tomato.getId());
+        productService.delete(tomato.getProductId());
         for (Product product : productService.getAll()) {
             System.out.println(product);
         }
@@ -60,7 +60,7 @@ public class Application {
             System.out.println(user);
         }
         System.out.println("Get Jack by id:");
-        System.out.println(userService.get(jack.getId()));
+        System.out.println(userService.get(jack.getUserId()));
 
         System.out.println("Jack changed name on Pit:");
         jack.setName("Pit");
@@ -69,7 +69,7 @@ public class Application {
             System.out.println(user);
         }
         System.out.println("Deleted user Bob:");
-        userService.delete(bob.getId());
+        userService.delete(bob.getUserId());
         for (User user : userService.getAll()) {
             System.out.println(user);
         }
@@ -85,16 +85,16 @@ public class Application {
         shoppingCartService.addProduct(bobCart, apple);
         shoppingCartService.addProduct(bobCart, tomato);
         System.out.println("All Bob's products: " + shoppingCartService.getAllProducts(bobCart));
-        System.out.println("ShoppingCart Bob: " + shoppingCartService.getByUserId(bob.getId()));
+        System.out.println("ShoppingCart Bob: " + shoppingCartService.getByUserId(bob.getUserId()));
         shoppingCartService.addProduct(bobCart, cucumber);
         System.out.println("ShoppingCart Bob with added Cucumber :");
-        System.out.println(shoppingCartService.getByUserId(bob.getId()));
+        System.out.println(shoppingCartService.getByUserId(bob.getUserId()));
         shoppingCartService.deleteProduct(bobCart, tomato);
         System.out.println("ShoppingCart Bob after deleted Tomato:");
-        System.out.println(shoppingCartService.getByUserId(bob.getId()));
+        System.out.println(shoppingCartService.getByUserId(bob.getUserId()));
         shoppingCartService.clear(bobCart);
         System.out.println("ShoppingCart Bob after clear:");
-        System.out.println(shoppingCartService.getByUserId(bob.getId()));
+        System.out.println(shoppingCartService.getByUserId(bob.getUserId()));
         shoppingCartService.addProduct(bobCart, apple);
         shoppingCartService.addProduct(bobCart, tomato);
         System.out.println("---------------------------------------------");
