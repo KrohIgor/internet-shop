@@ -9,7 +9,7 @@ import mate.academy.internet.shop.lib.Injector;
 import mate.academy.internet.shop.model.Order;
 import mate.academy.internet.shop.service.OrderService;
 
-public class ViewOrderController extends HttpServlet {
+public class GetOrderController extends HttpServlet {
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internet.shop");
     private final OrderService orderService =
             (OrderService) INJECTOR.getInstance(OrderService.class);
@@ -19,9 +19,7 @@ public class ViewOrderController extends HttpServlet {
             throws ServletException, IOException {
         String orderId = req.getParameter("orderId");
         Order order = orderService.get(Long.valueOf(orderId));
-        req.setAttribute("orderId", order.getOrderId());
-        req.setAttribute("userName", order.getUser().getName());
-        req.setAttribute("products",order.getProducts());
+        req.setAttribute("order", order);
         req.getRequestDispatcher("/WEB-INF/views/order.jsp").forward(req, resp);
     }
 }

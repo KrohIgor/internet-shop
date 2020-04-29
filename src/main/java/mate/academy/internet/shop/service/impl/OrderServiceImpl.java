@@ -29,11 +29,6 @@ public class OrderServiceImpl implements OrderService {
         List<Product> copyProducts = new ArrayList<>(products);
         Order order = new Order(user, copyProducts);
         orderDao.create(order);
-        shoppingCartDao.getAll()
-                .stream()
-                .filter(s -> s.getUser().getUserId().equals(user.getUserId()))
-                .findFirst()
-                .ifPresent(s -> s.getProducts().clear());
         return order;
     }
 

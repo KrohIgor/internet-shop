@@ -5,8 +5,8 @@
     <title>Order</title>
 </head>
 <body>
-<h1>Order ID: ${orderId}</h1>
-<h2>User: ${userName}</h2>
+<h1>Order ID: ${order.orderId}</h1>
+<h2>User: ${order.user.getName()}</h2>
 <h2>Products: </h2>
 </form>
 <table border="1">
@@ -15,7 +15,7 @@
         <th>Name</th>
         <th>Price</th>
     </tr>
-    <c:forEach var="product" items="${products}">
+    <c:forEach var="product" items="${order.products}">
         <tr>
             <td>
                 <c:out value="${product.productId}"/>

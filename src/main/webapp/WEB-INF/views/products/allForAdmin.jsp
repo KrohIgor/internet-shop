@@ -33,6 +33,8 @@
         </tr>
     </c:forEach>
 </table>
-<p><a href="${pageContext.request.contextPath}/addProduct">Go to add new product</a></p>
+<form method="get" action="${pageContext.request.contextPath}/addProduct">
+    <button type="submit">Add new product</button>
+</form>
 </body>
 </html>
