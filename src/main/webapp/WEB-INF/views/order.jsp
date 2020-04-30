@@ -29,6 +29,7 @@
         </tr>
     </c:forEach>
 </table>
+<p></p><a href="${pageContext.request.contextPath}/products/all">Return to the list of all products</a></p>
 <p></p><a href="${pageContext.request.contextPath}/orders/all">Return to the list of all orders</a></p>
 </body>
 </html>
