@@ -2,10 +2,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>All products in shopping cart</title>
+    <title>All products</title>
 </head>
 <body>
-<h1>All products in shopping cart page</h1>
+<h1>All products page</h1>
 <form method="get" action="${pageContext.request.contextPath}/">
     <button type="submit">HOME</button>
 </form>
@@ -28,14 +28,13 @@
                 <c:out value="${product.price}"/>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/deleteProductFromShoppingCart?productId=${product.productId}">DELETE</a>
+                <a href="${pageContext.request.contextPath}/deleteProduct?productId=${product.productId}">DELETE</a>
             </td>
         </tr>
     </c:forEach>
 </table>
-<form method="get" action="${pageContext.request.contextPath}/completeOrder">
-    <button type="submit">Complete Order</button>
+<form method="get" action="${pageContext.request.contextPath}/addProduct">
+    <button type="submit">Add new product</button>
 </form>
-<p></p><a href="${pageContext.request.contextPath}/products/all">Return to the list of all products</a></p>
 </body>
 </html>

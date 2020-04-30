@@ -6,6 +6,9 @@
 </head>
 <body>
 <h1>All users page</h1>
+<form method="get" action="${pageContext.request.contextPath}/">
+    <button type="submit">HOME</button>
+</form>
 <table border="1">
     <tr>
         <th>ID</th>

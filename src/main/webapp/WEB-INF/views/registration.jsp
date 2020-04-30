@@ -11,7 +11,6 @@
     Login: <input type="text" name="login">
     Password: <input type="password" name="pwd">
     Repeat password: <input type="password" name="pwd-repeat">
-
     <button type="submit">Register</button>
 </form>
 </body>

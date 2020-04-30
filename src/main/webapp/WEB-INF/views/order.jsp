@@ -2,21 +2,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>All products</title>
+    <title>Order</title>
 </head>
 <body>
-<h1>All products page</h1>
-<form method="get" action="${pageContext.request.contextPath}/">
-    <button type="submit">HOME</button>
+<h1>Order ID: ${order.orderId}</h1>
+<h2>User: ${order.user.getName()}</h2>
+<h2>Products: </h2>
 </form>
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Price</th>
-        <th>Buy</th>
     </tr>
-    <c:forEach var="product" items="${products}">
+    <c:forEach var="product" items="${order.products}">
         <tr>
             <td>
                 <c:out value="${product.productId}"/>
@@ -27,11 +26,9 @@
             <td>
                 <c:out value="${product.price}"/>
             </td>
-            <td>
-                <a href="${pageContext.request.contextPath}/addProductToShoppingCart?productId=${product.productId}">BUY</a>
-            </td>
         </tr>
     </c:forEach>
 </table>
+<p></p><a href="${pageContext.request.contextPath}/orders/all">Return to the list of all orders</a></p>
 </body>
 </html>

@@ -2,33 +2,33 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>All products</title>
+    <title>All orders</title>
 </head>
 <body>
-<h1>All products page</h1>
+<h1>All orders page</h1>
 <form method="get" action="${pageContext.request.contextPath}/">
     <button type="submit">HOME</button>
 </form>
 <table border="1">
     <tr>
         <th>ID</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Buy</th>
+        <th>User name</th>
+        <th>Information</th>
+        <th>Delete</th>
     </tr>
-    <c:forEach var="product" items="${products}">
+    <c:forEach var="order" items="${orders}">
         <tr>
             <td>
-                <c:out value="${product.productId}"/>
+                <c:out value="${order.orderId}"/>
             </td>
             <td>
-                <c:out value="${product.name}"/>
+                <c:out value="${order.user.name}"/>
             </td>
             <td>
-                <c:out value="${product.price}"/>
+                <a href="${pageContext.request.contextPath}/viewOrder?orderId=${order.orderId}">VIEW</a>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/addProductToShoppingCart?productId=${product.productId}">BUY</a>
+                <a href="${pageContext.request.contextPath}/deleteOrder?orderId=${order.orderId}">DELETE</a>
             </td>
         </tr>
     </c:forEach>

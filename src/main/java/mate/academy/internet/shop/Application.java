@@ -104,7 +104,7 @@ public class Application {
         System.out.println("Test Order Service:");
         System.out.println("Bob's order by id:");
         Order bobOrder = orderService.completeOrder(bobCart.getProducts(), bob);
-        System.out.println(orderService.get(bobOrder.getId()));
+        System.out.println(orderService.get(bobOrder.getOrderId()));
         System.out.println("Order on empty sopping cart:");
         orderService.completeOrder(bobCart.getProducts(), bob);
         System.out.println("All orders:");
@@ -113,7 +113,7 @@ public class Application {
         shoppingCartService.addProduct(jackCart, cucumber);
         Order jackOrder = orderService.completeOrder(jackCart.getProducts(), jack);
         System.out.println(orderService.getAll());
-        orderService.delete(jackOrder.getId());
+        orderService.delete(jackOrder.getOrderId());
         System.out.println("Orders after delete jackOrder:");
         System.out.println(orderService.getAll());
         shoppingCartService.addProduct(bobCart, cucumber);
