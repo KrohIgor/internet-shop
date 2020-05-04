@@ -119,6 +119,6 @@ public class Application {
         shoppingCartService.addProduct(bobCart, cucumber);
         orderService.completeOrder(bobCart.getProducts(), bob);
         System.out.println("Bob's orders by user:");
-        System.out.println(orderService.getUserOrders(bob));
+        System.out.println(orderService.getUserOrders(bob.getUserId()));
     }
 }

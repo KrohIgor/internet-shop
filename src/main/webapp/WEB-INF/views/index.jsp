@@ -14,7 +14,9 @@
     <p><a href="${pageContext.request.contextPath}/injectData">Inject test data into the DB</a></p>
     <p><a href="${pageContext.request.contextPath}/products/all">All products for buyers</a></p>
     <p><a href="${pageContext.request.contextPath}/products/allForAdministrator">All products for administrator</a></p>
-    <p><a href="${pageContext.request.contextPath}/orders/all">All orders</a></p>
+    <p><a href="${pageContext.request.contextPath}/allProductInShoppingCart">All products in user's shopping cart</a></p>
+    <p><a href="${pageContext.request.contextPath}/orders/userOrders">All user orders</a></p>
+    <p><a href="${pageContext.request.contextPath}/orders/all">All orders in shop</a></p>
     <p><a href="${pageContext.request.contextPath}/users/all">All users</a></p>
     <p><a href="${pageContext.request.contextPath}/registration">Go to user registration</a></p>
     <p><a href="${pageContext.request.contextPath}/login">Go to user login</a></p>
