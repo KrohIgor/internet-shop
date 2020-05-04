@@ -22,6 +22,6 @@ public class GetUserOrdersController extends HttpServlet {
         Long userId = (Long) req.getSession().getAttribute(USER_ID);
         List<Order> userOrders = orderService.getUserOrders(userId);
         req.setAttribute("orders", userOrders);
-        req.getRequestDispatcher("/WEB-INF/views/orders/all.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/user/orders.jsp").forward(req, resp);
     }
 }

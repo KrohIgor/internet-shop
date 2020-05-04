@@ -129,7 +129,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>userOrders</servlet-name>
-        <url-pattern>/orders/userOrders</url-pattern>
+        <url-pattern>/user/orders</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>viewOrder</servlet-name>
