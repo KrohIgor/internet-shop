@@ -124,6 +124,14 @@
         <url-pattern>/orders/all</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>userOrders</servlet-name>
+        <servlet-class>mate.academy.internet.shop.controllers.GetUserOrdersController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userOrders</servlet-name>
+        <url-pattern>/user/orders</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>viewOrder</servlet-name>
         <servlet-class>mate.academy.internet.shop.controllers.GetOrderController</servlet-class>
     </servlet>

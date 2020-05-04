@@ -4,34 +4,36 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <title>Order</title>
+    <title>All orders</title>
 </head>
 <body class="container">
-<h1>Order ID: ${order.orderId}</h1>
-<h2 class="text-primary">User: ${order.user.getName()}</h2>
-<h2>Products: </h2>
+<h1 class="text-primary">All user orders page</h1>
+<form method="get" action="${pageContext.request.contextPath}/">
+    <button type="submit" class="btn-primary">HOME</button>
 </form>
 <table class="table-striped" border="1">
     <tr>
         <th>ID</th>
-        <th>Name</th>
-        <th>Price</th>
+        <th>User name</th>
+        <th>Information</th>
+        <th>Delete</th>
     </tr>
-    <c:forEach var="product" items="${order.products}">
+    <c:forEach var="order" items="${orders}">
         <tr>
             <td>
-                <c:out value="${product.productId}"/>
+                <c:out value="${order.orderId}"/>
             </td>
             <td>
-                <c:out value="${product.name}"/>
+                <c:out value="${order.user.name}"/>
             </td>
             <td>
-                <c:out value="${product.price}"/>
+                <a class="text-info" href="${pageContext.request.contextPath}/viewOrder?orderId=${order.orderId}">VIEW</a>
+            </td>
+            <td>
+                <a class="text-danger" href="${pageContext.request.contextPath}/deleteOrder?orderId=${order.orderId}">DELETE</a>
             </td>
         </tr>
     </c:forEach>
 </table>
-<p></p><a href="${pageContext.request.contextPath}/products/all">Return to the list of all products</a></p>
-<p></p><a href="${pageContext.request.contextPath}/user/orders">Go to the list of all user orders</a></p>
 </body>
 </html>
