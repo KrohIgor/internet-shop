@@ -4,12 +4,12 @@ import java.util.List;
 
 public class ShoppingCart {
 
-    private User user;
+    private Long userId;
     private Long shoppingCartId;
     private List<Product> products;
 
-    public ShoppingCart(User user) {
-        this.user = user;
+    public ShoppingCart(Long userId) {
+        this.userId = userId;
     }
 
     public Long getShoppingCartId() {
@@ -28,17 +28,17 @@ public class ShoppingCart {
         this.products = products;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override
     public String toString() {
-        return "ShoppingCart{" + "user=" + user + ", id=" + shoppingCartId
+        return "ShoppingCart{" + "userId=" + userId + ", id=" + shoppingCartId
                 + ", products=" + products + '}';
     }
 }
