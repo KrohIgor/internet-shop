@@ -76,12 +76,12 @@
         <url-pattern>/shoppingCart/deleteProduct</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>allProductInShoppingCart</servlet-name>
+        <servlet-name>allProductsInShoppingCart</servlet-name>
         <servlet-class>mate.academy.internet.shop.controllers.GetAllProductsInShoppingCartController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>allProductInShoppingCart</servlet-name>
-        <url-pattern>/allProductInShoppingCart</url-pattern>
+        <servlet-name>allProductsInShoppingCart</servlet-name>
+        <url-pattern>/shoppingCar/allProducts</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>completeOrder</servlet-name>
@@ -113,7 +113,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>allProductsForAdministrator</servlet-name>
-        <url-pattern>/products/allForAdministrator</url-pattern>
+        <url-pattern>/products/allForAdmin</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>allOrders</servlet-name>

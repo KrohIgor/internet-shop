@@ -13,8 +13,8 @@
     <h1 class="bg-primary">Hello mates!</h1>
     <p><a href="${pageContext.request.contextPath}/injectData">Inject test data into the DB</a></p>
     <p><a href="${pageContext.request.contextPath}/products/all">All products for buyers</a></p>
-    <p><a href="${pageContext.request.contextPath}/products/allForAdministrator">All products for administrator</a></p>
-    <p><a href="${pageContext.request.contextPath}/allProductInShoppingCart">All products in user's shopping cart</a></p>
+    <p><a href="${pageContext.request.contextPath}/products/allForAdmin">All products for administrator</a></p>
+    <p><a href="${pageContext.request.contextPath}/shoppingCar/allProducts">All products in user's shopping cart</a></p>
     <p><a href="${pageContext.request.contextPath}/user/orders">All user orders</a></p>
     <p><a href="${pageContext.request.contextPath}/orders/all">All orders in shop</a></p>
     <p><a href="${pageContext.request.contextPath}/users/all">All users</a></p>
