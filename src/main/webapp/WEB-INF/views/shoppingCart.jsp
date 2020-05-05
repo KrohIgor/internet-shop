@@ -35,7 +35,7 @@
         </tr>
     </c:forEach>
 </table>
-<form method="get" action="${pageContext.request.contextPath}/completeOrder">
+<form method="get" action="${pageContext.request.contextPath}/order/complete">
     <button type="submit" class="btn-success">Complete Order</button>
 </form>
 <p></p><a href="${pageContext.request.contextPath}/products/all">Return to the list of all products</a></p>

@@ -19,7 +19,7 @@
     <p><a href="${pageContext.request.contextPath}/orders/all">All orders in shop</a></p>
     <p><a href="${pageContext.request.contextPath}/users/all">All users</a></p>
     <p><a href="${pageContext.request.contextPath}/registration">Go to user registration</a></p>
-    <p><a href="${pageContext.request.contextPath}/login">Go to user login</a></p>
+    <p><a href="${pageContext.request.contextPath}/logout">Logout</a></p>
 </div>
 <img src="http://biznesvbloge.ru/wp-content/uploads/2015/06/food-shop.jpg"
      class="img-thumbnail">
