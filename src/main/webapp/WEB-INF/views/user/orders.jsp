@@ -16,7 +16,6 @@
         <th>ID</th>
         <th>User name</th>
         <th>Information</th>
-        <th>Delete</th>
     </tr>
     <c:forEach var="order" items="${orders}">
         <tr>
@@ -28,9 +27,6 @@
             </td>
             <td>
                 <a class="text-info" href="${pageContext.request.contextPath}/viewOrder?orderId=${order.orderId}">VIEW</a>
-            </td>
-            <td>
-                <a class="text-danger" href="${pageContext.request.contextPath}/deleteOrder?orderId=${order.orderId}">DELETE</a>
             </td>
         </tr>
     </c:forEach>
