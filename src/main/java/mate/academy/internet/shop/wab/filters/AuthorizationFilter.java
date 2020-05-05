@@ -35,7 +35,7 @@ public class AuthorizationFilter implements Filter {
         protectedUrls.put("/order/complete", Set.of(Role.RoleName.USER));
         protectedUrls.put("/shoppingCart/addProduct", Set.of(Role.RoleName.USER));
         protectedUrls.put("/shoppingCart/deleteProduct", Set.of(Role.RoleName.USER));
-        protectedUrls.put("/shoppingCar/allProducts", Set.of(Role.RoleName.USER));
+        protectedUrls.put("/shoppingCart/allProducts", Set.of(Role.RoleName.USER));
         protectedUrls.put("/user/orders", Set.of(Role.RoleName.USER));
     }
 
