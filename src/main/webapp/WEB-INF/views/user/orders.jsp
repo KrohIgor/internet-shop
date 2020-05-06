@@ -13,10 +13,9 @@
 </form>
 <table class="table-striped" border="1">
     <tr>
-        <th>ID</th>
-        <th>User name</th>
+        <th>Order ID</th>
+        <th>User ID</th>
         <th>Information</th>
-        <th>Delete</th>
     </tr>
     <c:forEach var="order" items="${orders}">
         <tr>
@@ -24,13 +23,10 @@
                 <c:out value="${order.orderId}"/>
             </td>
             <td>
-                <c:out value="${order.user.name}"/>
+                <c:out value="${order.userId}"/>
             </td>
             <td>
                 <a class="text-info" href="${pageContext.request.contextPath}/viewOrder?orderId=${order.orderId}">VIEW</a>
-            </td>
-            <td>
-                <a class="text-danger" href="${pageContext.request.contextPath}/deleteOrder?orderId=${order.orderId}">DELETE</a>
             </td>
         </tr>
     </c:forEach>

@@ -8,7 +8,7 @@
 </head>
 <body class="container">
 <h1>Order ID: ${order.orderId}</h1>
-<h2 class="text-primary">User: ${order.user.getName()}</h2>
+<h2>User ID: ${order.userId}</h2>
 <h2>Products: </h2>
 </form>
 <table class="table-striped" border="1">

@@ -65,7 +65,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>addProductToShoppingCart</servlet-name>
-        <url-pattern>/addProductToShoppingCart</url-pattern>
+        <url-pattern>/shoppingCart/addProduct</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>deleteProductFromShoppingCart</servlet-name>
@@ -73,15 +73,15 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>deleteProductFromShoppingCart</servlet-name>
-        <url-pattern>/deleteProductFromShoppingCart</url-pattern>
+        <url-pattern>/shoppingCart/deleteProduct</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>allProductInShoppingCart</servlet-name>
+        <servlet-name>allProductsInShoppingCart</servlet-name>
         <servlet-class>mate.academy.internet.shop.controllers.GetAllProductsInShoppingCartController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>allProductInShoppingCart</servlet-name>
-        <url-pattern>/allProductInShoppingCart</url-pattern>
+        <servlet-name>allProductsInShoppingCart</servlet-name>
+        <url-pattern>/shoppingCart/allProducts</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>completeOrder</servlet-name>
@@ -89,7 +89,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>completeOrder</servlet-name>
-        <url-pattern>/completeOrder</url-pattern>
+        <url-pattern>/order/complete</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>allUsers</servlet-name>
@@ -113,7 +113,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>allProductsForAdministrator</servlet-name>
-        <url-pattern>/products/allForAdministrator</url-pattern>
+        <url-pattern>/products/allForAdmin</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>allOrders</servlet-name>
@@ -147,6 +147,14 @@
         <servlet-name>login</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>mate.academy.internet.shop.controllers.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
     
     <filter>
         <filter-name>authenticationFilter</filter-name>
@@ -154,6 +162,14 @@
     </filter>
     <filter-mapping>
         <filter-name>authenticationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>authorizationFilter</filter-name>
+        <filter-class>mate.academy.internet.shop.wab.filters.AuthorizationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>authorizationFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 </web-app>

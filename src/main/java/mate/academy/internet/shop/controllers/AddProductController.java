@@ -27,6 +27,6 @@ public class AddProductController extends HttpServlet {
         Double price = Double.valueOf(req.getParameter("price"));
         Product product = new Product(name, price);
         productService.create(product);
-        resp.sendRedirect(req.getContextPath() + "/products/allForAdministrator");
+        resp.sendRedirect(req.getContextPath() + "/products/allForAdmin");
     }
 }

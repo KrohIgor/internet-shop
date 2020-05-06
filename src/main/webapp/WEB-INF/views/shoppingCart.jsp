@@ -30,12 +30,12 @@
                 <c:out value="${product.price}"/>
             </td>
             <td>
-                <a class="text-danger" href="${pageContext.request.contextPath}/deleteProductFromShoppingCart?productId=${product.productId}">DELETE</a>
+                <a class="text-danger" href="${pageContext.request.contextPath}/shoppingCart/deleteProduct?productId=${product.productId}">DELETE</a>
             </td>
         </tr>
     </c:forEach>
 </table>
-<form method="get" action="${pageContext.request.contextPath}/completeOrder">
+<form method="get" action="${pageContext.request.contextPath}/order/complete">
     <button type="submit" class="btn-success">Complete Order</button>
 </form>
 <p></p><a href="${pageContext.request.contextPath}/products/all">Return to the list of all products</a></p>

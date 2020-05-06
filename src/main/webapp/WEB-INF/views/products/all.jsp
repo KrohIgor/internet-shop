@@ -30,7 +30,7 @@
                 <c:out value="${product.price}"/>
             </td>
             <td>
-                <a class="text-success" href="${pageContext.request.contextPath}/addProductToShoppingCart?productId=${product.productId}">BUY</a>
+                <a class="text-success" href="${pageContext.request.contextPath}/shoppingCart/addProduct?productId=${product.productId}">BUY</a>
             </td>
         </tr>
     </c:forEach>
