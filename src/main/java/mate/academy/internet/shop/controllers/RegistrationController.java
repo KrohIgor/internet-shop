@@ -12,8 +12,10 @@ import mate.academy.internet.shop.model.ShoppingCart;
 import mate.academy.internet.shop.model.User;
 import mate.academy.internet.shop.service.ShoppingCartService;
 import mate.academy.internet.shop.service.UserService;
+import org.apache.log4j.Logger;
 
 public class RegistrationController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(RegistrationController.class);
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internet.shop");
     private final UserService userService = (UserService) INJECTOR.getInstance(UserService.class);
     private final ShoppingCartService shoppingCartService =
@@ -43,6 +45,7 @@ public class RegistrationController extends HttpServlet {
         } else {
             req.setAttribute("message", "Your password and repeat password aren't the same.");
             req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
+            LOGGER.info("Your password and repeat password aren't the same.");
         }
     }
 }
