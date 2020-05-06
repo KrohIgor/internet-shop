@@ -45,7 +45,7 @@ public class RegistrationController extends HttpServlet {
         } else {
             req.setAttribute("message", "Your password and repeat password aren't the same.");
             req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
-            LOGGER.info("Your password and repeat password aren't the same.");
+            LOGGER.warn("Your password and repeat password aren't the same.");
         }
     }
 }
