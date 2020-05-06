@@ -11,11 +11,9 @@ import mate.academy.internet.shop.model.Order;
 import mate.academy.internet.shop.model.Product;
 import mate.academy.internet.shop.model.User;
 import mate.academy.internet.shop.service.OrderService;
-import org.apache.log4j.Logger;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-    private static final Logger LOGGER = Logger.getLogger(OrderServiceImpl.class);
 
     @Inject
     private OrderDao orderDao;
@@ -25,7 +23,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order completeOrder(List<Product> products, User user) {
         if (products == null) {
-            LOGGER.warn("Count product 0, order not complete!");
             return null;
         }
         List<Product> copyProducts = new ArrayList<>(products);

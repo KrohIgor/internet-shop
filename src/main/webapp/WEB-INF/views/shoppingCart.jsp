@@ -8,6 +8,7 @@
 </head>
 <body class="container">
 <h1 class="text-primary">All products in shopping cart page</h1>
+<h4 style="color:red">${message}</h4>
 <form method="get" action="${pageContext.request.contextPath}/">
     <button type="submit" class="btn-primary">HOME</button>
 </form>
