@@ -22,8 +22,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order completeOrder(List<Product> products, User user) {
-        if (products.size() == 0) {
-            System.out.println("Count product 0, order not complete!");
+        if (products == null) {
             return null;
         }
         List<Product> copyProducts = new ArrayList<>(products);

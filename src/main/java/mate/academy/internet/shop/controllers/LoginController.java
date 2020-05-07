@@ -10,8 +10,10 @@ import mate.academy.internet.shop.exception.AuthenticationException;
 import mate.academy.internet.shop.lib.Injector;
 import mate.academy.internet.shop.model.User;
 import mate.academy.internet.shop.security.AuthenticationService;
+import org.apache.log4j.Logger;
 
 public class LoginController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(LoginController.class);
     private static final Injector INJECTOR = Injector.getInstance("mate.academy.internet.shop");
     private final AuthenticationService authService =
             (AuthenticationService) INJECTOR.getInstance(AuthenticationService.class);
@@ -35,6 +37,7 @@ public class LoginController extends HttpServlet {
         } catch (AuthenticationException e) {
             req.setAttribute("errorMsg", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
+            LOGGER.warn("Incorrect user login or password for user login: " + login);
             return;
         }
         resp.sendRedirect(req.getContextPath() + "/");

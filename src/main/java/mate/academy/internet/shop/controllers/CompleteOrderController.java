@@ -12,8 +12,10 @@ import mate.academy.internet.shop.model.User;
 import mate.academy.internet.shop.service.OrderService;
 import mate.academy.internet.shop.service.ShoppingCartService;
 import mate.academy.internet.shop.service.UserService;
+import org.apache.log4j.Logger;
 
 public class CompleteOrderController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(CompleteOrderController.class);
     private static final String USER_ID = "user_id";
     private static final Injector INJECTOR = Injector.getInstance("mate.academy");
     private final ShoppingCartService shoppingCartService =
@@ -29,8 +31,14 @@ public class CompleteOrderController extends HttpServlet {
         ShoppingCart shoppingCart = shoppingCartService.getByUserId(userId);
         User user = userService.get(userId);
         Order order = orderService.completeOrder(shoppingCart.getProducts(), user);
-        shoppingCartService.clear(shoppingCart);
-        req.setAttribute("order", order);
-        req.getRequestDispatcher("/WEB-INF/views/order.jsp").forward(req, resp);
+        if (order != null) {
+            shoppingCartService.clear(shoppingCart);
+            req.setAttribute("order", order);
+            req.getRequestDispatcher("/WEB-INF/views/order.jsp").forward(req, resp);
+        } else {
+            req.setAttribute("message", "Count product 0, order not complete!");
+            req.getRequestDispatcher("/WEB-INF/views/shoppingCart.jsp").forward(req, resp);
+            LOGGER.warn("Order not complete for userId: " + userId);
+        }
     }
 }
