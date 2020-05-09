@@ -155,6 +155,14 @@
         <servlet-name>logout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>updateProduct</servlet-name>
+        <servlet-class>mate.academy.internet.shop.controllers.UpdateProductController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>updateProduct</servlet-name>
+        <url-pattern>/updateProduct</url-pattern>
+    </servlet-mapping>
     
     <filter>
         <filter-name>authenticationFilter</filter-name>
