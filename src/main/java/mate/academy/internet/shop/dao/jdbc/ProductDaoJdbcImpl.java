@@ -26,7 +26,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.setDouble(2, product.getPrice());
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new DataProcessingException();
+            throw new DataProcessingException(e);
         }
         return product;
     }
@@ -39,15 +39,10 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                long productId = resultSet.getLong("product_id");
-                String productName = resultSet.getString("productname");
-                Double productPrice = resultSet.getDouble("productprice");
-                Product product = new Product(productName, productPrice);
-                product.setProductId(productId);
-                return Optional.of(product);
+                return Optional.of(getProductFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            throw new DataProcessingException();
+            throw new DataProcessingException(e);
         }
         return Optional.empty();
     }
@@ -60,15 +55,10 @@ public class ProductDaoJdbcImpl implements ProductDao {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                long productId = resultSet.getLong("product_id");
-                String productName = resultSet.getString("productname");
-                Double productPrice = resultSet.getDouble("productprice");
-                Product product = new Product(productName, productPrice);
-                product.setProductId(productId);
-                productList.add(product);
+                productList.add(getProductFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            throw new DataProcessingException();
+            throw new DataProcessingException(e);
         }
         return productList;
     }
@@ -84,7 +74,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.setLong(3, product.getProductId());
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new DataProcessingException();
+            throw new DataProcessingException(e);
         }
         return product;
     }
@@ -98,7 +88,16 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.execute();
             return true;
         } catch (SQLException e) {
-            throw new DataProcessingException();
+            throw new DataProcessingException(e);
         }
+    }
+
+    private Product getProductFromResultSet(ResultSet resultSet) throws SQLException {
+        long productId = resultSet.getLong("product_id");
+        String productName = resultSet.getString("productname");
+        Double productPrice = resultSet.getDouble("productprice");
+        Product product = new Product(productName, productPrice);
+        product.setProductId(productId);
+        return product;
     }
 }
