@@ -42,7 +42,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
                 return Optional.of(getProductFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            throw new DataProcessingException(e);
+            throw new DataProcessingException("Couldn't get Product with id - " + id, e);
         }
         return Optional.empty();
     }

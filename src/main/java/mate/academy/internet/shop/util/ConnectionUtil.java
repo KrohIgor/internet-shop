@@ -17,10 +17,10 @@ public class ConnectionUtil {
     public static Connection getConnection() {
         Properties dbProperties = new Properties();
         dbProperties.put("user", "root");
-        dbProperties.put("password","****");
+        dbProperties.put("password", "****");
         String url = "jdbc:mysql://localhost:3306/internet-shop?serverTimezone=UTC";
         try {
-            return DriverManager.getConnection(url,dbProperties);
+            return DriverManager.getConnection(url, dbProperties);
         } catch (SQLException e) {
             throw new RuntimeException("Can't establish the connection to DB", e);
         }
