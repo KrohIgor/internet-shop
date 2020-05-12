@@ -5,10 +5,8 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 import mate.academy.internet.shop.dao.ProductDao;
 import mate.academy.internet.shop.db.Storage;
-import mate.academy.internet.shop.lib.Dao;
 import mate.academy.internet.shop.model.Product;
 
-@Dao
 public class ProductDaoImpl implements ProductDao {
 
     @Override
