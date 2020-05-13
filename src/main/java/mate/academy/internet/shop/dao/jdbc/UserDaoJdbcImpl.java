@@ -130,7 +130,8 @@ public class UserDaoJdbcImpl implements UserDao {
             preparedStatement.setLong(4, user.getUserId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DataProcessingException("Couldn't get User with id - " + user.getUserId(), e);
+            throw new DataProcessingException("Couldn't update User with id - "
+                    + user.getUserId(), e);
         }
         return user;
     }
@@ -139,11 +140,11 @@ public class UserDaoJdbcImpl implements UserDao {
     public boolean delete(Long id) {
         String queryUsersRoles = "DELETE FROM `internet-shop`.users_roles "
                 + "WHERE user_id = ?";
-        String queryUsers = "DELETE FROM `internet-shop`.`users` WHERE user_id = ?";
         try (Connection connection = ConnectionUtil.getConnection();) {
             PreparedStatement statementUsersRoles = connection.prepareStatement(queryUsersRoles);
             statementUsersRoles.setLong(1, id);
             statementUsersRoles.executeUpdate();
+            String queryUsers = "DELETE FROM `internet-shop`.`users` WHERE user_id = ?";
             PreparedStatement statementUsers = connection.prepareStatement(queryUsers);
             statementUsers.setLong(1, id);
             statementUsers.executeUpdate();

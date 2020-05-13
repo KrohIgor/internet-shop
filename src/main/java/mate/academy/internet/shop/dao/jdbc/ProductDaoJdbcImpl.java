@@ -89,12 +89,18 @@ public class ProductDaoJdbcImpl implements ProductDao {
     public boolean delete(Long id) {
         String queryShoppingCartProduct = "DELETE FROM `internet-shop`.shopping_carts_products "
                 + "WHERE `product_id` = ?";
-        String queryProduct = "DELETE FROM `internet-shop`.`products` WHERE `product_id` = ?;";
         try (Connection connection = ConnectionUtil.getConnection();) {
             PreparedStatement preparedStatementShoppingCartProduct =
                     connection.prepareStatement(queryShoppingCartProduct);
             preparedStatementShoppingCartProduct.setLong(1, id);
             preparedStatementShoppingCartProduct.executeUpdate();
+            String queryOrdersProducts = "DELETE FROM `internet-shop`.orders_products "
+                    + "WHERE `product_id` = ?";
+            PreparedStatement preparedStatementOrdersProducts =
+                    connection.prepareStatement(queryOrdersProducts);
+            preparedStatementOrdersProducts.setLong(1, id);
+            preparedStatementOrdersProducts.executeUpdate();
+            String queryProduct = "DELETE FROM `internet-shop`.`products` WHERE `product_id` = ?;";
             PreparedStatement preparedStatementProduct = connection.prepareStatement(queryProduct);
             preparedStatementProduct.setLong(1, id);
             preparedStatementProduct.executeUpdate();

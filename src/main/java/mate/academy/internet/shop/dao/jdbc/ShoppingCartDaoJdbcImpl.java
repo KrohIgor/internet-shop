@@ -53,7 +53,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
                 return Optional.of(getShoppingCartFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Couldn't get User with id - " + id, e);
+            throw new DataProcessingException("Couldn't get Shopping Cart with id - " + id, e);
         }
         return Optional.empty();
     }
@@ -99,18 +99,19 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
 
     @Override
     public boolean delete(Long id) {
-        String queryUsersRoles = "DELETE FROM `internet-shop`.shopping_carts_products "
-                + "WHERE shopping_cart_id = ?";
-        String queryUsers = "DELETE FROM `internet-shop`.`shopping_carts` "
+        String queryProducts = "DELETE FROM `internet-shop`.shopping_carts_products "
                 + "WHERE shopping_cart_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
-            PreparedStatement statementShoppingCartProducts =
-                    connection.prepareStatement(queryUsersRoles);
-            statementShoppingCartProducts.setLong(1, id);
-            statementShoppingCartProducts.executeUpdate();
-            PreparedStatement statementShoppingCarts = connection.prepareStatement(queryUsers);
-            statementShoppingCarts.setLong(1, id);
-            statementShoppingCarts.executeUpdate();
+            PreparedStatement preparedStatementShoppingCartProducts =
+                    connection.prepareStatement(queryProducts);
+            preparedStatementShoppingCartProducts.setLong(1, id);
+            preparedStatementShoppingCartProducts.executeUpdate();
+            String queryShoppingCarts = "DELETE FROM `internet-shop`.`shopping_carts` "
+                    + "WHERE shopping_cart_id = ?";
+            PreparedStatement preparedStatementShoppingCarts =
+                    connection.prepareStatement(queryShoppingCarts);
+            preparedStatementShoppingCarts.setLong(1, id);
+            preparedStatementShoppingCarts.executeUpdate();
             return true;
         } catch (SQLException e) {
             throw new DataProcessingException("Couldn't delete Shopping Cart with id - " + id, e);
@@ -138,7 +139,8 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
                 productList.add(product);
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Couldn't get User with id - " + shoppingCartId, e);
+            throw new DataProcessingException("Couldn't get Shopping Cart with id - "
+                    + shoppingCartId, e);
         }
         shoppingCart.setProducts(productList);
         return shoppingCart;
