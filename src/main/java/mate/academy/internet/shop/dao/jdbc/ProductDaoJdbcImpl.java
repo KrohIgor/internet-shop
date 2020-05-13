@@ -33,7 +33,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
             }
             return product;
         } catch (SQLException e) {
-            throw new DataProcessingException(e);
+            throw new DataProcessingException("Couldn't create Product", e);
         }
     }
 
@@ -64,7 +64,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
                 productList.add(getProductFromResultSet(resultSet));
             }
         } catch (SQLException e) {
-            throw new DataProcessingException(e);
+            throw new DataProcessingException("Couldn't get all Products", e);
         }
         return productList;
     }
@@ -80,21 +80,27 @@ public class ProductDaoJdbcImpl implements ProductDao {
             preparedStatement.setLong(3, product.getProductId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DataProcessingException(e);
+            throw new DataProcessingException("Couldn't update Product", e);
         }
         return product;
     }
 
     @Override
     public boolean delete(Long id) {
-        String query = "DELETE FROM `internet-shop`.`products` WHERE (`product_id` = ?);";
+        String queryShoppingCartProduct = "DELETE FROM `internet-shop`.shopping_carts_products "
+                + "WHERE `product_id` = ?";
+        String queryProduct = "DELETE FROM `internet-shop`.`products` WHERE `product_id` = ?;";
         try (Connection connection = ConnectionUtil.getConnection();) {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setLong(1, id);
-            preparedStatement.executeUpdate();
+            PreparedStatement preparedStatementShoppingCartProduct =
+                    connection.prepareStatement(queryShoppingCartProduct);
+            preparedStatementShoppingCartProduct.setLong(1, id);
+            preparedStatementShoppingCartProduct.executeUpdate();
+            PreparedStatement preparedStatementProduct = connection.prepareStatement(queryProduct);
+            preparedStatementProduct.setLong(1, id);
+            preparedStatementProduct.executeUpdate();
             return true;
         } catch (SQLException e) {
-            throw new DataProcessingException(e);
+            throw new DataProcessingException("Couldn't delete Product with id - " + id, e);
         }
     }
 

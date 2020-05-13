@@ -17,11 +17,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart addProduct(ShoppingCart shoppingCart, Product product) {
-        if (shoppingCart.getProducts() == null) {
-            shoppingCart.setProducts(new ArrayList<>());
-        }
         if (shoppingCart.getShoppingCartId() == null) {
             shoppingCartDao.create(shoppingCart);
+        }
+        if (shoppingCart.getProducts() == null) {
+            shoppingCart.setProducts(new ArrayList<>());
         }
         shoppingCart.getProducts().add(product);
         return shoppingCartDao.update(shoppingCart);
