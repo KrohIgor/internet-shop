@@ -18,8 +18,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
 
     @Override
     public Product create(Product product) {
-        String query = "INSERT INTO `internet-shop`.`products` "
-                + "(`productname`, `productprice`) VALUES (?, ?)";
+        String query = "INSERT INTO products (productname, productprice) VALUES (?, ?)";
         try (Connection connection = ConnectionUtil.getConnection();) {
             PreparedStatement preparedStatement = connection.prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
@@ -71,8 +70,8 @@ public class ProductDaoJdbcImpl implements ProductDao {
 
     @Override
     public Product update(Product product) {
-        String query = "UPDATE `internet-shop`.`products` SET `productname` = ?, "
-                + "`productprice` = ? WHERE (`product_id` = ?)";
+        String query = "UPDATE products SET productname = ?, "
+                + "productprice = ? WHERE product_id = ?";
         try (Connection connection = ConnectionUtil.getConnection();) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, product.getName());
@@ -87,20 +86,20 @@ public class ProductDaoJdbcImpl implements ProductDao {
 
     @Override
     public boolean delete(Long id) {
-        String queryShoppingCartProduct = "DELETE FROM `internet-shop`.shopping_carts_products "
-                + "WHERE `product_id` = ?";
+        String queryShoppingCartProduct = "DELETE FROM shopping_carts_products "
+                + "WHERE product_id = ?";
         try (Connection connection = ConnectionUtil.getConnection();) {
             PreparedStatement preparedStatementShoppingCartProduct =
                     connection.prepareStatement(queryShoppingCartProduct);
             preparedStatementShoppingCartProduct.setLong(1, id);
             preparedStatementShoppingCartProduct.executeUpdate();
-            String queryOrdersProducts = "DELETE FROM `internet-shop`.orders_products "
-                    + "WHERE `product_id` = ?";
+            String queryOrdersProducts = "DELETE FROM orders_products "
+                    + "WHERE product_id = ?";
             PreparedStatement preparedStatementOrdersProducts =
                     connection.prepareStatement(queryOrdersProducts);
             preparedStatementOrdersProducts.setLong(1, id);
             preparedStatementOrdersProducts.executeUpdate();
-            String queryProduct = "DELETE FROM `internet-shop`.`products` WHERE `product_id` = ?;";
+            String queryProduct = "DELETE FROM products WHERE product_id = ?";
             PreparedStatement preparedStatementProduct = connection.prepareStatement(queryProduct);
             preparedStatementProduct.setLong(1, id);
             preparedStatementProduct.executeUpdate();

@@ -26,8 +26,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public Optional<User> findByLogin(String login) {
-        String query = "SELECT * FROM `internet-shop`.users "
-                + "WHERE users.login = ?";
+        String query = "SELECT * FROM users WHERE users.login = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, login);
@@ -43,8 +42,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public User create(User user) {
-        String query = "INSERT INTO `internet-shop`.`users` "
-                + "(`name`, `login`, `password`) VALUES (?, ?, ?)";
+        String query = "INSERT INTO users (name, login, password) VALUES (?, ?, ?)";
         try (Connection connection = ConnectionUtil.getConnection();) {
             PreparedStatement preparedStatementUser = connection.prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
@@ -57,11 +55,9 @@ public class UserDaoJdbcImpl implements UserDao {
                 long userId = generatedKeys.getLong(1);
                 user.setUserId(userId);
             }
-            String queryRole = "SELECT role_id FROM `internet-shop`.roles "
-                    + "WHERE role_name = ?";
+            String queryRole = "SELECT role_id FROM roles WHERE role_name = ?";
             PreparedStatement preparedStatementRole = connection.prepareStatement(queryRole);
-            String queryUserRole = "INSERT INTO `internet-shop`.`users_roles` "
-                    + "(`user_id`, `role_id`) VALUES (?, ?)";
+            String queryUserRole = "INSERT INTO users_roles (user_id, role_id) VALUES (?, ?)";
             PreparedStatement preparedStatementUserRole =
                     connection.prepareStatement(queryUserRole);
             for (Role role : user.getRoles()) {
@@ -82,8 +78,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public Optional<User> get(Long id) {
-        String query = "SELECT * FROM `internet-shop`.users "
-                + "WHERE users.user_id = ?";
+        String query = "SELECT * FROM users WHERE users.user_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, id);
@@ -99,7 +94,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public List<User> getAll() {
-        String query = "SELECT * FROM `internet-shop`.users";
+        String query = "SELECT * FROM users";
         List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -115,8 +110,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public User update(User user) {
-        String query = "UPDATE `internet-shop`.`users` SET `name` = ?,"
-                + "`login` = ?, `password` = ? WHERE `user_id` = ?";
+        String query = "UPDATE users SET name = ?, login = ?, password = ? WHERE user_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, user.getName());
@@ -133,13 +127,12 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public boolean delete(Long id) {
-        String queryUsersRoles = "DELETE FROM `internet-shop`.users_roles "
-                + "WHERE user_id = ?";
+        String queryUsersRoles = "DELETE FROM users_roles WHERE user_id = ?";
         try (Connection connection = ConnectionUtil.getConnection();) {
             PreparedStatement statementUsersRoles = connection.prepareStatement(queryUsersRoles);
             statementUsersRoles.setLong(1, id);
             statementUsersRoles.executeUpdate();
-            String queryUsers = "DELETE FROM `internet-shop`.`users` WHERE user_id = ?";
+            String queryUsers = "DELETE FROM users WHERE user_id = ?";
             PreparedStatement statementUsers = connection.prepareStatement(queryUsers);
             statementUsers.setLong(1, id);
             statementUsers.executeUpdate();
@@ -157,7 +150,7 @@ public class UserDaoJdbcImpl implements UserDao {
         String password = resultSet.getString("password");
         User user = new User(name, login, password);
         user.setUserId(userId);
-        String query = "SELECT * FROM `internet-shop`.users_roles "
+        String query = "SELECT * FROM users_roles "
                 + "INNER JOIN roles ON users_roles.role_id = roles.role_id "
                 + "WHERE users_roles.user_id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);

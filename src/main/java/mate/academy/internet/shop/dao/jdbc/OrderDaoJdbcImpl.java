@@ -24,7 +24,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public Order create(Order order) {
-        String query = "INSERT INTO `internet-shop`.`orders` (`user_id`) VALUES (?)";
+        String query = "INSERT INTO orders (user_id) VALUES (?)";
         try (Connection connection = ConnectionUtil.getConnection();) {
             PreparedStatement preparedStatement = connection.prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
@@ -44,8 +44,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public Optional<Order> get(Long id) {
-        String query = "SELECT * FROM `internet-shop`.orders\n"
-                + "WHERE order_id = ?";
+        String query = "SELECT * FROM orders WHERE order_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, id);
@@ -61,7 +60,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public List<Order> getAll() {
-        String query = "SELECT * FROM `internet-shop`.orders";
+        String query = "SELECT * FROM orders";
         List<Order> orderList = new ArrayList<>();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -77,8 +76,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public Order update(Order order) {
-        String query = "DELETE FROM `internet-shop`.orders_products "
-                + "WHERE order_id = ?";
+        String query = "DELETE FROM orders_products WHERE order_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, order.getOrderId());
@@ -93,15 +91,13 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public boolean delete(Long id) {
-        String queryProducts = "DELETE FROM `internet-shop`.orders_products "
-                + "WHERE order_id = ?";
+        String queryProducts = "DELETE FROM orders_products WHERE order_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statementOrderProducts =
                     connection.prepareStatement(queryProducts);
             statementOrderProducts.setLong(1, id);
             statementOrderProducts.executeUpdate();
-            String queryOrders = "DELETE FROM `internet-shop`.`orders` "
-                    + "WHERE order_id = ?";
+            String queryOrders = "DELETE FROM orders WHERE order_id = ?";
             PreparedStatement statementShoppingCarts = connection.prepareStatement(queryOrders);
             statementShoppingCarts.setLong(1, id);
             statementShoppingCarts.executeUpdate();
@@ -117,8 +113,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
         Order order = new Order(userId);
         order.setOrderId(orderId);
         List<Product> productList = new ArrayList<>();
-        String query = "SELECT * FROM `internet-shop`.orders_products "
-                + "WHERE order_id = ?";
+        String query = "SELECT * FROM orders_products WHERE order_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, orderId);
@@ -141,8 +136,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     private void insertProductsToOrdersProducts(Order order, Connection connection)
             throws SQLException {
-        String queryAddProduct = "INSERT INTO "
-                + "`internet-shop`.orders_products values(?, ?)";
+        String queryAddProduct = "INSERT INTO orders_products values(?, ?)";
         PreparedStatement statement = connection.prepareStatement(queryAddProduct);
         for (Product product : order.getProducts()) {
             statement.setLong(1, order.getOrderId());
