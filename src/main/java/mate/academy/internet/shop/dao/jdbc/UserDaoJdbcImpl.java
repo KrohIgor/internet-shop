@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -25,16 +26,14 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public Optional<User> findByLogin(String login) {
-        String query = "SELECT * FROM `internet-shop`.users \n"
-                + "INNER JOIN users_roles ON users.user_id = users_roles.user_id\n"
-                + "INNER JOIN roles ON users_roles.role_id = roles.role_id\n"
+        String query = "SELECT * FROM `internet-shop`.users "
                 + "WHERE users.login = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, login);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return Optional.of(getUserFromResultSet(resultSet));
+                return Optional.of(getUserFromResultSet(connection, resultSet));
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Couldn't find User with login - " + login, e);
@@ -58,18 +57,18 @@ public class UserDaoJdbcImpl implements UserDao {
                 long userId = generatedKeys.getLong(1);
                 user.setUserId(userId);
             }
+            String queryRole = "SELECT role_id FROM `internet-shop`.roles "
+                    + "WHERE role_name = ?";
+            PreparedStatement preparedStatementRole = connection.prepareStatement(queryRole);
+            String queryUserRole = "INSERT INTO `internet-shop`.`users_roles` "
+                    + "(`user_id`, `role_id`) VALUES (?, ?)";
+            PreparedStatement preparedStatementUserRole =
+                    connection.prepareStatement(queryUserRole);
             for (Role role : user.getRoles()) {
-                String queryRole = "SELECT role_id FROM `internet-shop`.roles\n"
-                        + "WHERE role_name = ?";
-                PreparedStatement preparedStatementRole = connection.prepareStatement(queryRole);
                 preparedStatementRole.setString(1, role.getRoleName().toString());
                 ResultSet resultSet = preparedStatementRole.executeQuery();
                 if (resultSet.next()) {
                     long roleId = resultSet.getLong("role_id");
-                    String queryUserRole = "INSERT INTO `internet-shop`.`users_roles` "
-                            + "(`user_id`, `role_id`) VALUES (?, ?)";
-                    PreparedStatement preparedStatementUserRole =
-                            connection.prepareStatement(queryUserRole);
                     preparedStatementUserRole.setLong(1, user.getUserId());
                     preparedStatementUserRole.setLong(2, roleId);
                     preparedStatementUserRole.executeUpdate();
@@ -83,16 +82,14 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public Optional<User> get(Long id) {
-        String query = "SELECT * FROM `internet-shop`.users \n"
-                + "INNER JOIN users_roles ON users.user_id = users_roles.user_id\n"
-                + "INNER JOIN roles ON users_roles.role_id = roles.role_id\n"
+        String query = "SELECT * FROM `internet-shop`.users "
                 + "WHERE users.user_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return Optional.of(getUserFromResultSet(resultSet));
+                return Optional.of(getUserFromResultSet(connection, resultSet));
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Couldn't get User with id - " + id, e);
@@ -102,15 +99,13 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public List<User> getAll() {
-        String query = "SELECT * FROM `internet-shop`.users \n"
-                + "INNER JOIN users_roles ON users.user_id = users_roles.user_id\n"
-                + "INNER JOIN roles ON users_roles.role_id = roles.role_id";
+        String query = "SELECT * FROM `internet-shop`.users";
         List<User> userList = new ArrayList<>();
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                userList.add(getUserFromResultSet(resultSet));
+                userList.add(getUserFromResultSet(connection, resultSet));
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Couldn't get all Users", e);
@@ -121,7 +116,7 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public User update(User user) {
         String query = "UPDATE `internet-shop`.`users` SET `name` = ?,"
-                + "`login` = ?, `password` = ? WHERE (`user_id` = ?)";
+                + "`login` = ?, `password` = ? WHERE `user_id` = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, user.getName());
@@ -154,15 +149,35 @@ public class UserDaoJdbcImpl implements UserDao {
         }
     }
 
-    private User getUserFromResultSet(ResultSet resultSet) throws SQLException {
+    private User getUserFromResultSet(Connection connection, ResultSet resultSet)
+            throws SQLException {
         long userId = resultSet.getLong("user_id");
         String name = resultSet.getString("name");
         String login = resultSet.getString("login");
         String password = resultSet.getString("password");
-        String roleName = resultSet.getString("role_name");
         User user = new User(name, login, password);
         user.setUserId(userId);
-        user.setRoles(Set.of(Role.of(roleName)));
+        String query = "SELECT * FROM `internet-shop`.users_roles "
+                + "INNER JOIN roles ON users_roles.role_id = roles.role_id "
+                + "WHERE users_roles.user_id = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setLong(1, userId);
+        ResultSet resultSetRole = preparedStatement.executeQuery();
+        selectRoleForUser(resultSetRole, user);
+        return user;
+    }
+
+    private User selectRoleForUser(ResultSet resultSetRole, User user)
+            throws SQLException {
+        Set<Role> roleSet = new HashSet<>();
+        while (resultSetRole.next()) {
+            long roleId = resultSetRole.getLong("role_id");
+            String roleString = resultSetRole.getString("role_name");
+            Role role = Role.of(roleString);
+            role.setId(roleId);
+            roleSet.add(role);
+        }
+        user.setRoles(roleSet);
         return user;
     }
 }

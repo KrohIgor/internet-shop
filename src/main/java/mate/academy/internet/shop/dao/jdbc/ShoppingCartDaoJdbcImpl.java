@@ -82,10 +82,10 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, shoppingCart.getShoppingCartId());
             preparedStatement.executeUpdate();
+            String queryUpdate = "INSERT INTO "
+                    + "`internet-shop`.shopping_carts_products values(?, ?)";
+            PreparedStatement statement = connection.prepareStatement(queryUpdate);
             for (Product product : shoppingCart.getProducts()) {
-                String queryUpdate = "INSERT INTO "
-                        + "`internet-shop`.shopping_carts_products values(?, ?)";
-                PreparedStatement statement = connection.prepareStatement(queryUpdate);
                 statement.setLong(1, shoppingCart.getShoppingCartId());
                 statement.setLong(2, product.getProductId());
                 statement.executeUpdate();
@@ -135,7 +135,7 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
                 Product product = productDao.get(productId)
                         .orElseThrow(() ->
                                 new DataProcessingException("Couldn't get Product with id - "
-                                + productId));
+                                        + productId));
                 productList.add(product);
             }
         } catch (SQLException e) {

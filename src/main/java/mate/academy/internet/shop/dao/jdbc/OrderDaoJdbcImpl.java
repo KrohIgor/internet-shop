@@ -77,7 +77,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     @Override
     public Order update(Order order) {
-        String query = "DELETE FROM `internet-shop`.orders_products\n"
+        String query = "DELETE FROM `internet-shop`.orders_products "
                 + "WHERE order_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -117,7 +117,7 @@ public class OrderDaoJdbcImpl implements OrderDao {
         Order order = new Order(userId);
         order.setOrderId(orderId);
         List<Product> productList = new ArrayList<>();
-        String query = "SELECT * FROM `internet-shop`.orders_products\n"
+        String query = "SELECT * FROM `internet-shop`.orders_products "
                 + "WHERE order_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -141,10 +141,10 @@ public class OrderDaoJdbcImpl implements OrderDao {
 
     private void insertProductsToOrdersProducts(Order order, Connection connection)
             throws SQLException {
+        String queryAddProduct = "INSERT INTO "
+                + "`internet-shop`.orders_products values(?, ?)";
+        PreparedStatement statement = connection.prepareStatement(queryAddProduct);
         for (Product product : order.getProducts()) {
-            String queryAddProduct = "INSERT INTO "
-                    + "`internet-shop`.orders_products values(?, ?)";
-            PreparedStatement statement = connection.prepareStatement(queryAddProduct);
             statement.setLong(1, order.getOrderId());
             statement.setLong(2, product.getProductId());
             statement.executeUpdate();
