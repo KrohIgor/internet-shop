@@ -65,7 +65,7 @@ public class UserDaoJdbcImpl implements UserDao {
             PreparedStatement preparedStatementUserRole =
                     connection.prepareStatement(queryUserRole);
             for (Role role : user.getRoles()) {
-                preparedStatementRole.setString(1, role.getRoleName().toString());
+                preparedStatementRole.setString(1, String.valueOf(role.getRoleName()));
                 ResultSet resultSet = preparedStatementRole.executeQuery();
                 if (resultSet.next()) {
                     long roleId = resultSet.getLong("role_id");
@@ -167,7 +167,7 @@ public class UserDaoJdbcImpl implements UserDao {
         return user;
     }
 
-    private User selectRoleForUser(ResultSet resultSetRole, User user)
+    private void selectRoleForUser(ResultSet resultSetRole, User user)
             throws SQLException {
         Set<Role> roleSet = new HashSet<>();
         while (resultSetRole.next()) {
@@ -178,6 +178,5 @@ public class UserDaoJdbcImpl implements UserDao {
             roleSet.add(role);
         }
         user.setRoles(roleSet);
-        return user;
     }
 }
