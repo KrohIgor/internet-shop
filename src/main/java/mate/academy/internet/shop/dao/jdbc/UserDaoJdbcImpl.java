@@ -55,21 +55,7 @@ public class UserDaoJdbcImpl implements UserDao {
                 long userId = generatedKeys.getLong(1);
                 user.setUserId(userId);
             }
-            String queryRole = "SELECT role_id FROM roles WHERE role_name = ?";
-            PreparedStatement preparedStatementRole = connection.prepareStatement(queryRole);
-            String queryUserRole = "INSERT INTO users_roles (user_id, role_id) VALUES (?, ?)";
-            PreparedStatement preparedStatementUserRole =
-                    connection.prepareStatement(queryUserRole);
-            for (Role role : user.getRoles()) {
-                preparedStatementRole.setString(1, String.valueOf(role.getRoleName()));
-                ResultSet resultSet = preparedStatementRole.executeQuery();
-                if (resultSet.next()) {
-                    long roleId = resultSet.getLong("role_id");
-                    preparedStatementUserRole.setLong(1, user.getUserId());
-                    preparedStatementUserRole.setLong(2, roleId);
-                    preparedStatementUserRole.executeUpdate();
-                }
-            }
+            insertRoleUserToDB(user, connection);
             return user;
         } catch (SQLException e) {
             throw new DataProcessingException("Couldn't create User", e);
@@ -171,5 +157,23 @@ public class UserDaoJdbcImpl implements UserDao {
             roleSet.add(role);
         }
         user.setRoles(roleSet);
+    }
+
+    private void insertRoleUserToDB(User user, Connection connection) throws SQLException {
+        String queryRole = "SELECT role_id FROM roles WHERE role_name = ?";
+        PreparedStatement preparedStatementRole = connection.prepareStatement(queryRole);
+        String queryUserRole = "INSERT INTO users_roles (user_id, role_id) VALUES (?, ?)";
+        PreparedStatement preparedStatementUserRole =
+                connection.prepareStatement(queryUserRole);
+        for (Role role : user.getRoles()) {
+            preparedStatementRole.setString(1, String.valueOf(role.getRoleName()));
+            ResultSet resultSet = preparedStatementRole.executeQuery();
+            if (resultSet.next()) {
+                long roleId = resultSet.getLong("role_id");
+                preparedStatementUserRole.setLong(1, user.getUserId());
+                preparedStatementUserRole.setLong(2, roleId);
+                preparedStatementUserRole.executeUpdate();
+            }
+        }
     }
 }
