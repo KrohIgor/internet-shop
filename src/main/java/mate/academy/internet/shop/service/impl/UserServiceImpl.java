@@ -2,17 +2,31 @@ package mate.academy.internet.shop.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import mate.academy.internet.shop.dao.OrderDao;
+import mate.academy.internet.shop.dao.ShoppingCartDao;
 import mate.academy.internet.shop.dao.UserDao;
 import mate.academy.internet.shop.lib.Inject;
 import mate.academy.internet.shop.lib.Service;
+import mate.academy.internet.shop.model.Order;
+import mate.academy.internet.shop.model.ShoppingCart;
 import mate.academy.internet.shop.model.User;
+import mate.academy.internet.shop.service.OrderService;
+import mate.academy.internet.shop.service.ShoppingCartService;
 import mate.academy.internet.shop.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Inject
+    private ShoppingCartService shoppingCartService;
+    @Inject
+    private OrderService orderService;
+    @Inject
     private UserDao userDao;
+    @Inject
+    private ShoppingCartDao shoppingCartDao;
+    @Inject
+    private OrderDao orderDao;
 
     @Override
     public User create(User user) {
@@ -36,6 +50,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean delete(Long id) {
+        List<Order> orderList = orderService.getUserOrders(id);
+        for (Order order : orderList) {
+            orderDao.delete(order.getOrderId());
+        }
+        ShoppingCart shoppingCartByUserId = shoppingCartService.getByUserId(id);
+        shoppingCartDao.delete(shoppingCartByUserId.getShoppingCartId());
         return userDao.delete(id);
     }
 

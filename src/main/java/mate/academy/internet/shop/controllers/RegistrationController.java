@@ -35,6 +35,12 @@ public class RegistrationController extends HttpServlet {
         String password = req.getParameter("pwd");
         String repeatPassword = req.getParameter("pwd-repeat");
 
+        if (userService.findByLogin(login).isPresent()) {
+            req.setAttribute("message", "Your login is busy enter another login.");
+            req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
+            LOGGER.warn("User entered login that is already taken.");
+            return;
+        }
         if (password.equals(repeatPassword)) {
             User user = new User(name, login, password);
             user.setRoles(Set.of(Role.of("USER")));
