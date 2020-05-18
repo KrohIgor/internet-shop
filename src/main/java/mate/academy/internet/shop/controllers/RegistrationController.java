@@ -42,7 +42,9 @@ public class RegistrationController extends HttpServlet {
             return;
         }
         if (password.equals(repeatPassword)) {
-            User user = new User(name, login, password);
+            User user = new User(name);
+            user.setLogin(login);
+            userService.setPassword(user, password);
             user.setRoles(Set.of(Role.of("USER")));
             userService.create(user);
             ShoppingCart userShoppingCart = new ShoppingCart(user.getUserId());

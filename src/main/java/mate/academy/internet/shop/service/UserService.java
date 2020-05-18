@@ -5,4 +5,6 @@ import mate.academy.internet.shop.model.User;
 
 public interface UserService extends GenericService<User, Long> {
     Optional<User> findByLogin(String login);
+
+    void setPassword(User user, String password);
 }

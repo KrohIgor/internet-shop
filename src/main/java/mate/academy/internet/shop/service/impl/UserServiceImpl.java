@@ -13,6 +13,7 @@ import mate.academy.internet.shop.model.User;
 import mate.academy.internet.shop.service.OrderService;
 import mate.academy.internet.shop.service.ShoppingCartService;
 import mate.academy.internet.shop.service.UserService;
+import mate.academy.internet.shop.util.HashUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -62,5 +63,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByLogin(String login) {
         return userDao.findByLogin(login);
+    }
+
+    @Override
+    public void setPassword(User user, String password) {
+        byte[] salt = HashUtil.getSalt();
+        user.setSalt(salt);
+        String hashPassword = HashUtil.hashPassword(password, salt);
+        user.setPassword(hashPassword);
     }
 }
