@@ -13,6 +13,7 @@ import mate.academy.internet.shop.model.User;
 import mate.academy.internet.shop.service.OrderService;
 import mate.academy.internet.shop.service.ShoppingCartService;
 import mate.academy.internet.shop.service.UserService;
+import mate.academy.internet.shop.util.HashUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,6 +31,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
+        byte[] salt = HashUtil.getSalt();
+        user.setSalt(salt);
+        String hashPassword = HashUtil.hashPassword(user.getPassword(), salt);
+        user.setPassword(hashPassword);
         return userDao.create(user);
     }
 

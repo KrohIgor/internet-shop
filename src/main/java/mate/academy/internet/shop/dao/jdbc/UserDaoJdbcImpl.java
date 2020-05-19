@@ -42,13 +42,14 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public User create(User user) {
-        String query = "INSERT INTO users (name, login, password) VALUES (?, ?, ?)";
+        String query = "INSERT INTO users (name, login, password, salt) VALUES (?, ?, ?, ?)";
         try (Connection connection = ConnectionUtil.getConnection();) {
             PreparedStatement preparedStatementUser = connection.prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatementUser.setString(1, user.getName());
             preparedStatementUser.setString(2, user.getLogin());
             preparedStatementUser.setString(3, user.getPassword());
+            preparedStatementUser.setBytes(4, user.getSalt());
             preparedStatementUser.executeUpdate();
             ResultSet generatedKeys = preparedStatementUser.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -134,8 +135,10 @@ public class UserDaoJdbcImpl implements UserDao {
         String name = resultSet.getString("name");
         String login = resultSet.getString("login");
         String password = resultSet.getString("password");
+        byte[] salt = resultSet.getBytes("salt");
         User user = new User(name, login, password);
         user.setUserId(userId);
+        user.setSalt(salt);
         String query = "SELECT * FROM users_roles "
                 + "INNER JOIN roles ON users_roles.role_id = roles.role_id "
                 + "WHERE users_roles.user_id = ?";
