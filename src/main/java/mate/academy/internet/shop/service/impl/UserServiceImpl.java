@@ -31,6 +31,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
+        byte[] salt = HashUtil.getSalt();
+        user.setSalt(salt);
+        String hashPassword = HashUtil.hashPassword(user.getPassword(), salt);
+        user.setPassword(hashPassword);
         return userDao.create(user);
     }
 
@@ -63,13 +67,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByLogin(String login) {
         return userDao.findByLogin(login);
-    }
-
-    @Override
-    public void setPassword(User user, String password) {
-        byte[] salt = HashUtil.getSalt();
-        user.setSalt(salt);
-        String hashPassword = HashUtil.hashPassword(password, salt);
-        user.setPassword(hashPassword);
     }
 }
