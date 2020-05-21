@@ -144,4 +144,21 @@ public class OrderDaoJdbcImpl implements OrderDao {
             statement.executeUpdate();
         }
     }
+
+    @Override
+    public List<Order> getUserOrders(Long userId) {
+        String query = "SELECT * FROM orders WHERE user_id = ?";
+        List<Order> orderList = new ArrayList<>();
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setLong(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                orderList.add(getOrderFromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new DataProcessingException("Couldn't get all Orders", e);
+        }
+        return orderList;
+    }
 }
