@@ -17,8 +17,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Inject
     private OrderDao orderDao;
-    @Inject
-    private ShoppingCartDao shoppingCartDao;
 
     @Override
     public Order completeOrder(List<Product> products, User user) {
@@ -61,6 +59,5 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean delete(Long id) {
         return orderDao.delete(id);
-        //return orderDao.getAll().removeIf(o -> o.getOrderId().equals(id));
     }
 }

@@ -1,8 +1,9 @@
 package mate.academy.internet.shop.model;
 
 public class Role {
+
     private Long id;
-    private RoleName roleName;
+    private final RoleName roleName;
 
     private Role(RoleName roleName) {
         this.roleName = roleName;
@@ -22,10 +23,6 @@ public class Role {
 
     public RoleName getRoleName() {
         return roleName;
-    }
-
-    public void setRoleName(RoleName roleName) {
-        this.roleName = roleName;
     }
 
     public enum RoleName {

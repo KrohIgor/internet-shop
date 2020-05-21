@@ -11,7 +11,7 @@ import mate.academy.internet.shop.service.ShoppingCartService;
 
 public class GetAllProductsInShoppingCartController extends HttpServlet {
     private static final String USER_ID = "user_id";
-    private static final Injector INJECTOR = Injector.getInstance("mate.academy");
+    private static final Injector INJECTOR = Injector.getInstance("mate.academy.internet.shop");
     private final ShoppingCartService shoppingCartService =
             (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
 

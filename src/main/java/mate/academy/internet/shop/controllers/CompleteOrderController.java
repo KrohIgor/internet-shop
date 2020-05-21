@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 public class CompleteOrderController extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(CompleteOrderController.class);
     private static final String USER_ID = "user_id";
-    private static final Injector INJECTOR = Injector.getInstance("mate.academy");
+    private static final Injector INJECTOR = Injector.getInstance("mate.academy.internet.shop");
     private final ShoppingCartService shoppingCartService =
             (ShoppingCartService) INJECTOR.getInstance(ShoppingCartService.class);
     private final OrderService orderService =

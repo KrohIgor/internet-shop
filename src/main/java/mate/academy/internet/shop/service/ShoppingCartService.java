@@ -1,18 +1,15 @@
 package mate.academy.internet.shop.service;
 
-import java.util.List;
 import mate.academy.internet.shop.model.Product;
 import mate.academy.internet.shop.model.ShoppingCart;
 
-public interface ShoppingCartService extends GenericService<ShoppingCart,Long> {
+public interface ShoppingCartService extends GenericService<ShoppingCart, Long> {
 
     ShoppingCart addProduct(ShoppingCart shoppingCart, Product product);
 
     boolean deleteProduct(ShoppingCart shoppingCart, Product product);
 
-    void clear(ShoppingCart shoppingCart); //remove all products from the shoppingCart
+    void clear(ShoppingCart shoppingCart);
 
     ShoppingCart getByUserId(Long userId);
-
-    List<Product> getAllProducts(ShoppingCart shoppingCart);
 }

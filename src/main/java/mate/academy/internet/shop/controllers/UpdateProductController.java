@@ -24,8 +24,7 @@ public class UpdateProductController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Long productId = Long.valueOf(req.getParameter("productId"));
         String name = req.getParameter("name");
         Double price = Double.valueOf(req.getParameter("price"));
