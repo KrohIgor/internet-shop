@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import mate.academy.internet.shop.dao.OrderDao;
-import mate.academy.internet.shop.dao.ShoppingCartDao;
 import mate.academy.internet.shop.lib.Inject;
 import mate.academy.internet.shop.lib.Service;
 import mate.academy.internet.shop.model.Order;
