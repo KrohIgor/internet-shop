@@ -14,7 +14,7 @@ public class AuthenticationFilter implements Filter {
     private static final String USER_ID = "user_id";
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
     }
 
     @Override
@@ -37,6 +37,5 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 }

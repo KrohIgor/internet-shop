@@ -7,20 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import mate.academy.internet.shop.dao.ProductDao;
 import mate.academy.internet.shop.dao.ShoppingCartDao;
 import mate.academy.internet.shop.exception.DataProcessingException;
 import mate.academy.internet.shop.lib.Dao;
-import mate.academy.internet.shop.lib.Inject;
 import mate.academy.internet.shop.model.Product;
 import mate.academy.internet.shop.model.ShoppingCart;
 import mate.academy.internet.shop.util.ConnectionUtil;
 
 @Dao
 public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
-
-    @Inject
-    private ProductDao productDao;
 
     @Override
     public ShoppingCart create(ShoppingCart shoppingCart) {
@@ -119,24 +114,32 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
         ShoppingCart shoppingCart = new ShoppingCart(userId);
         shoppingCart.setShoppingCartId(shoppingCartId);
         List<Product> productList = new ArrayList<>();
-        String query = "SELECT * FROM shopping_carts_products WHERE shopping_cart_id = ?";
+        String query = "SELECT products.product_id, product_name, product_price "
+                + "FROM shopping_carts_products INNER JOIN products "
+                + "ON shopping_carts_products.product_id = products.product_id "
+                + "WHERE shopping_cart_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, shoppingCartId);
             ResultSet resultSetProduct = preparedStatement.executeQuery();
-            while (resultSetProduct.next()) {
-                Long productId = resultSetProduct.getLong("product_id");
-                Product product = productDao.get(productId)
-                        .orElseThrow(() ->
-                                new DataProcessingException("Couldn't get Product with id - "
-                                        + productId));
-                productList.add(product);
-            }
+            getOrderProducts(productList, resultSetProduct);
         } catch (SQLException e) {
             throw new DataProcessingException("Couldn't get Shopping Cart with id - "
                     + shoppingCartId, e);
         }
         shoppingCart.setProducts(productList);
         return shoppingCart;
+    }
+
+    private void getOrderProducts(List<Product> productList, ResultSet resultSetProduct)
+            throws SQLException {
+        while (resultSetProduct.next()) {
+            long productId = resultSetProduct.getLong("product_id");
+            String productName = resultSetProduct.getString("product_name");
+            Double productPrice = resultSetProduct.getDouble("product_price");
+            Product product = new Product(productName, productPrice);
+            product.setProductId(productId);
+            productList.add(product);
+        }
     }
 }

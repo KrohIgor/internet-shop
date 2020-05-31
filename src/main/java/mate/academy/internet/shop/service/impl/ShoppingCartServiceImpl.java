@@ -24,7 +24,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             shoppingCart.setProducts(new ArrayList<>());
         }
         shoppingCart.getProducts().add(product);
-        return shoppingCartDao.update(shoppingCart);
+        shoppingCartDao.update(shoppingCart);
+        return shoppingCart;
     }
 
     @Override
@@ -49,11 +50,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .stream()
                 .filter(s -> s.getUserId().equals(userId))
                 .findFirst().get();
-    }
-
-    @Override
-    public List<Product> getAllProducts(ShoppingCart shoppingCart) {
-        return shoppingCart.getProducts();
     }
 
     @Override

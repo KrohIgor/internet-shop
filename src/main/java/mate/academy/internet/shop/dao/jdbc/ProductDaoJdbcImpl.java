@@ -18,7 +18,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
 
     @Override
     public Product create(Product product) {
-        String query = "INSERT INTO products (productname, productprice) VALUES (?, ?)";
+        String query = "INSERT INTO products (product_name, product_price) VALUES (?, ?)";
         try (Connection connection = ConnectionUtil.getConnection();) {
             PreparedStatement preparedStatement = connection.prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
@@ -70,8 +70,8 @@ public class ProductDaoJdbcImpl implements ProductDao {
 
     @Override
     public Product update(Product product) {
-        String query = "UPDATE products SET productname = ?, "
-                + "productprice = ? WHERE product_id = ?";
+        String query = "UPDATE products SET product_name = ?, "
+                + "product_price = ? WHERE product_id = ?";
         try (Connection connection = ConnectionUtil.getConnection();) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, product.getName());
@@ -111,8 +111,8 @@ public class ProductDaoJdbcImpl implements ProductDao {
 
     private Product getProductFromResultSet(ResultSet resultSet) throws SQLException {
         long productId = resultSet.getLong("product_id");
-        String productName = resultSet.getString("productname");
-        Double productPrice = resultSet.getDouble("productprice");
+        String productName = resultSet.getString("product_name");
+        Double productPrice = resultSet.getDouble("product_price");
         Product product = new Product(productName, productPrice);
         product.setProductId(productId);
         return product;
