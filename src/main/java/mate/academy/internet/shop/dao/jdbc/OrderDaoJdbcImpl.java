@@ -8,10 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import mate.academy.internet.shop.dao.OrderDao;
-import mate.academy.internet.shop.dao.ProductDao;
 import mate.academy.internet.shop.exception.DataProcessingException;
 import mate.academy.internet.shop.lib.Dao;
-import mate.academy.internet.shop.lib.Inject;
 import mate.academy.internet.shop.model.Order;
 import mate.academy.internet.shop.model.Product;
 import mate.academy.internet.shop.util.ConnectionUtil;
@@ -19,13 +17,10 @@ import mate.academy.internet.shop.util.ConnectionUtil;
 @Dao
 public class OrderDaoJdbcImpl implements OrderDao {
 
-    @Inject
-    private ProductDao productDao;
-
     @Override
     public Order create(Order order) {
         String query = "INSERT INTO orders (user_id) VALUES (?)";
-        try (Connection connection = ConnectionUtil.getConnection();) {
+        try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query,
                     PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setLong(1, order.getUserId());
@@ -113,25 +108,32 @@ public class OrderDaoJdbcImpl implements OrderDao {
         Order order = new Order(userId);
         order.setOrderId(orderId);
         List<Product> productList = new ArrayList<>();
-        String query = "SELECT * FROM orders_products WHERE order_id = ?";
+        String query = "SELECT products.product_id, product_name, product_price "
+                + "FROM orders_products INNER JOIN products "
+                + "ON orders_products.product_id = products.product_id "
+                + "WHERE order_id = ?";
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setLong(1, orderId);
             ResultSet resultSetProduct = preparedStatement.executeQuery();
-            while (resultSetProduct.next()) {
-                Long productId = resultSetProduct.getLong("product_id");
-                Product product = productDao.get(productId)
-                        .orElseThrow(() ->
-                                new DataProcessingException("Couldn't get Product with id - "
-                                        + productId));
-                productList.add(product);
-            }
-
+            getOrderProducts(productList, resultSetProduct);
         } catch (SQLException e) {
             throw new DataProcessingException("Couldn't get Order with id - " + orderId, e);
         }
         order.setProducts(productList);
         return order;
+    }
+
+    private void getOrderProducts(List<Product> productList, ResultSet resultSetProduct)
+            throws SQLException {
+        while (resultSetProduct.next()) {
+            long productId = resultSetProduct.getLong("product_id");
+            String productName = resultSetProduct.getString("product_name");
+            Double productPrice = resultSetProduct.getDouble("product_price");
+            Product product = new Product(productName, productPrice);
+            product.setProductId(productId);
+            productList.add(product);
+        }
     }
 
     private void insertProductsToOrdersProducts(Order order, Connection connection)
